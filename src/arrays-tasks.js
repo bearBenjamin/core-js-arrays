@@ -21,11 +21,7 @@
  *    getIntervalArray(3, 3) => [ 3 ]
  */
 function getIntervalArray(start, end) {
-  const arr = [];
-  for (let i = start; i < end + 1; i += 1) {
-    arr.push(i);
-  }
-  return arr;
+  return Array.from({ length: end - start + 1 }, (_, index) => start + index);
 }
 
 /**
