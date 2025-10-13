@@ -38,28 +38,10 @@ function getIntervalArray(start, end) {
  *    sumArrays([-1, 0, 1], [1, 2, 3, 4]) => [0, 2, 4, 4]
  */
 function sumArrays(arr1, arr2) {
-  let length;
-  const result = [];
-  if (arr1.length >= arr2.length) {
-    length = arr1.length;
-    for (let i = 0; i < length; i += 1) {
-      if (arr2[i] === undefined) {
-        result.push(arr1[i] + 0);
-      } else {
-        result.push(arr1[i] + arr2[i]);
-      }
-    }
-  } else {
-    length = arr2.length;
-    for (let i = 0; i < length; i += 1) {
-      if (arr1[i] === undefined) {
-        result.push(arr2[i] + 0);
-      } else {
-        result.push(arr1[i] + arr2[i]);
-      }
-    }
-  }
-  return result;
+  return Array.from(
+    { length: Math.max(arr1.length, arr2.length) },
+    (_, index) => (arr1[index] || 0) + (arr2[index] || 0)
+  );
 }
 
 /**
