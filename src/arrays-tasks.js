@@ -448,8 +448,10 @@ function getIdentityMatrix(n) {
  *    getIndicesOfOddNumbers([2, 4, 6, 8, 10]) => []
  *    getIndicesOfOddNumbers([11, 22, 33, 44, 55]) => [0, 2, 4]
  */
-function getIndicesOfOddNumbers(/* numbers */) {
-  throw new Error('Not implemented');
+function getIndicesOfOddNumbers(numbers) {
+  const indexis = numbers.map((item, index) => index);
+  const result = indexis.filter((item) => numbers[item] % 2 !== 0);
+  return result;
 }
 
 /**
@@ -462,8 +464,12 @@ function getIndicesOfOddNumbers(/* numbers */) {
  *    getHexRGBValues([ 0, 255, 16777215]) => [ '#000000', '#0000FF', '#FFFFFF' ]
  *    getHexRGBValues([]) => []
  */
-function getHexRGBValues(/* arr */) {
-  throw new Error('Not implemented');
+function getHexRGBValues(arr) {
+  const result = arr.map((item) => {
+    const newItem = `#${item.toString(16).toUpperCase().padStart(6, '0')}`;
+    return newItem;
+  });
+  return result;
 }
 
 /**
@@ -480,8 +486,15 @@ function getHexRGBValues(/* arr */) {
  *   getMaxItems([ 10, 2, 7, 5, 3, -5 ], 3) => [ 10, 7, 5 ]
  *   getMaxItems([ 10, 10, 10, 10 ], 3) => [ 10, 10, 10 ]
  */
-function getMaxItems(/* arr, n */) {
-  throw new Error('Not implemented');
+function getMaxItems(arr, n) {
+  arr.sort((a, b) => b - a);
+  const maxItems = arr.reduce((acc, item) => {
+    if (acc.length < n) {
+      acc.push(item);
+    }
+    return acc;
+  }, []);
+  return maxItems;
 }
 
 /**
@@ -496,8 +509,14 @@ function getMaxItems(/* arr, n */) {
  *    findCommonElements(['a', 'b', 'c'], ['b', 'c', 'd']) => [ 'b', 'c' ]
  *    findCommonElements([1, 2, 3], ['a', 'b', 'c']) => []
  */
-function findCommonElements(/* arr1, arr2 */) {
-  throw new Error('Not implemented');
+function findCommonElements(arr1, arr2) {
+  const result = arr1.reduce((acc, item) => {
+    if (arr2.includes(item)) {
+      acc.push(item);
+    }
+    return acc;
+  }, []);
+  return result;
 }
 
 /**
@@ -511,8 +530,30 @@ function findCommonElements(/* arr1, arr2 */) {
  *    findLongestIncreasingSubsequence([3, 10, 2, 1, 20]) => longest is [3, 10] and [1, 20] => 2
  *    findLongestIncreasingSubsequence([50, 3, 10, 7, 40, 80]) => longest is [7, 40, 80] => 3
  */
-function findLongestIncreasingSubsequence(/* nums */) {
-  throw new Error('Not implemented');
+function findLongestIncreasingSubsequence(nums) {
+  if (nums.length === 0) return 0;
+
+  const comparisonArr = nums.slice(1);
+
+  const accStart = {
+    maxLength: 1,
+    currentLength: 1,
+    lastValue: nums[0],
+  };
+
+  const result = comparisonArr.reduce((acc, item) => {
+    if (item > acc.lastValue) {
+      acc.currentLength += 1;
+    } else {
+      acc.maxLength = Math.max(acc.maxLength, acc.currentLength);
+      acc.currentLength = 1;
+    }
+
+    acc.lastValue = item;
+    return acc;
+  }, accStart);
+
+  return Math.max(result.maxLength, result.currentLength);
 }
 
 /**
